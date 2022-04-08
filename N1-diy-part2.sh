@@ -25,7 +25,7 @@ sed -i 's/TARGET_rockchip/TARGET_rockchip\|\|TARGET_armvirt/g' package/lean/auto
 sed -i "s/OpenWrt /Deng Build $(TZ=UTC-8 date "+%Y.%m.%d") @ OpenWrt /g" package/lean/default-settings/files/zzz-default-settings
 
 # Modify default IP（FROM 192.168.1.1 CHANGE TO 10.10.10.1）
-sed -i 's/192.168.1.1/10.10.10.1/g' package/base-files/files/bin/config_generate
+sed -i 's/192.168.1.1/192.168.1.1/g' package/base-files/files/bin/config_generate
 
 # Modify system hostname（FROM OpenWrt CHANGE TO OpenWrt-N1）
 # sed -i 's/OpenWrt/OpenWrt-N1/g' package/base-files/files/bin/config_generate
@@ -59,6 +59,26 @@ git clone https://github.com/UnblockNeteaseMusic/luci-app-unblockneteasemusic.gi
 ##svn co https://github.com/openwrt/luci/trunk/applications/luci-app-smartdns package/luci-app-smartdns
 ##svn co https://github.com/kenzok8/openwrt-packages/trunk/luci-app-smartdns package/luci-app-smartdns
 #svn co https://github.com/kenzok8/openwrt-packages/branches/main/luci-app-smartdns package/luci-app-smartdns
+
+#添加 luci-theme-argon
+#git clone --depth=1 -b 18.06 https://github.com/jerrykuku/luci-theme-argon
+#git clone --depth=1 https://github.com/jerrykuku/luci-app-argon-config.git
+#rm -rf ../精益/luci-theme-argon
+
+#git clone --depth=1 https://github.com/kenzok8/openwrt-packages.git
+#rm -rf ./openwrt-packages/luci-app-ssr-plus
+#rm -rf ./openwrt-packages/luci-app-serverchan
+#rm -rf ./openwrt-packages/luci-app-openclash
+#rm -rf ./openwrt-packages/luci-app-jd-dailybonus
+#rm -rf ./openwrt-packages/luci-theme-argon_new
+#rm -rf ./openwrt-packages/naiveproxy
+#rm -rf ./openwrt-packages/tcping
+
+#git clone --depth=1 https://github.com/kenzok8/small
+#rm -rf ./small/v2ray-plugin
+#rm -rf ./small/xray-core
+#rm -rf ./small/xray-plugin
+#rm -rf ./small/shadowsocks-rust
 
 
 # 删除重复包
