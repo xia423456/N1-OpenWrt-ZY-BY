@@ -1,4 +1,4 @@
-name: 编译N1自用精简版固件
+name: 自用编译N1精简版固件
 
 on:
   repository_dispatch:
@@ -147,7 +147,7 @@ jobs:
           #retain_days: ${{ github.event.inputs.action_days }}
     
     - name: 删除多余releases
-      uses: dev-drprasad/delete-older-releases@v0.1.0
+      uses: dev-drprasad/delete-older-releases@master
       if: env.UPLOAD_RELEASE == 'true' && !cancelled()
       with:
         keep_latest: 3
