@@ -127,31 +127,25 @@ jobs:
         KERNEL_REPO_URL: https://github.com/quanjindeng/Actions_OpenWrt-Amlogic/tree/main/kernel
         KERNEL_VERSION_NAME: 5.4.188
         
-    - name: Create release
-      if: steps.package.outputs.status == 'true' && env.RELEASE == 'true' && !cancelled()
+    - name: 发布固件
       uses: ncipollo/release-action@v1
       with:
-        name: ${{ env.DATE }} 🚀 / N1-Openwrt | 编译
+        tag: openwrt_N1_${{ env.PACKAGED_OUTPUTDATE }}
+        artifacts: ${{ env.PACKAGED_OUTPUTPATH }}/*
         allowUpdates: true
-        tag: ${{ env.tag_name }}
-        commit: master
-        token: ${{ secrets.RELEASES_TOKEN  }}
+        token: ${{ secrets.GITHUB_TOKEN }}
         body: |
-          默认IP：192.168.0.130 默认密码： password
-          全新刷入emmc方法：
-             1. 固件刷入U盘。
-             2. cd root
-             3. ./install-to-emmc.sh
-             4. 拔掉U盘，断电重启。
-             
-          在线升级方法：
-             1. 上传 img 到/mnt/mmcblk2p4
-             2. cd /mnt/mmcblk2p4
-             3. 升级脚本下载 update-amlogic-openwrt.sh
-             4. chmod +x update-amlogic-openwrt.sh
-             5. gzip -d  *.img.gz
-             6. ./update-amlogic-openwrt.sh xxxx.img
-        artifacts:  ${{ env.UPLOAD }}/*
+          ### **适用于Amlogic平台的N1盒子OpenWrt固件**
+          * **固件信息：**
+          默认IP: `192.168.0.130`
+          默认用户名: `root`
+          默认密码: `password`
+          * **使用方法：**
+          1. 安装固件：写入U盘直接使用；U盘启动后可输入命令 `openwrt-install-amlogic` 按照英文提示写入到emmc
+          2. 更新固件：将固件放在 `/mnt/mmcblk2p4/` 目录下，输入命令 `openwrt-update-amlogic` 可直接更新
+          3. 登录Luci界面后，可直接使用`晶晨宝盒`插件进行写入emmc或者更新操作（使用前先按需求填写好插件设置），免去手动输入命令！
+          * **提示：**
+          `openwrt_s905d_n1_XX_XX` 文件名才是固件！
           
     - name: 清理Actions空间
       uses: Mattraks/delete-workflow-runs@main
