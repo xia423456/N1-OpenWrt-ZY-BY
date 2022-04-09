@@ -9,10 +9,19 @@ name: 使用releases最新底包打包
 on:
   repository_dispatch:
   workflow_dispatch:
-    
+    inputs:
+      branch:
+        description: 'Select Branch [ official / lede ]'
+        required: false
+        default: 'lede'
+
+env:
+  TZ: Asia/Shanghai
+
 jobs:
   build:
     runs-on: ubuntu-20.04
+    if: github.event.repository.owner.id == github.event.sender.id
 
     steps:
     - name: Checkout
